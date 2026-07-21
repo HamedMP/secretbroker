@@ -43,6 +43,7 @@ jobs:
         run: |
           tag="${{ inputs.tag || github.ref_name }}"
           node scripts/check-release-version.mjs "$tag"
+          node scripts/check-agent-package.mjs
           echo "tag=$tag" >> "$GITHUB_OUTPUT"
           echo "version=${tag#v}" >> "$GITHUB_OUTPUT"
       - run: cargo fmt --all --check

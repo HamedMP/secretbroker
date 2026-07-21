@@ -14,6 +14,9 @@ All notable changes to SecretBroker are documented here. The project follows sem
 - Native operating-system credential storage.
 - Explicit command environment injection and streaming exact-value redaction.
 - Portable Agent Skill installer for Pi, Claude Code, and Codex.
+- skills.sh listing and one-command Agent Skill installation.
+- Native Claude Code and Codex plugin marketplace manifests.
+- Codex desktop metadata, visual assets, and eight trigger and safety evaluations.
 - npm launcher architecture and cross-platform release automation.
 
 [Unreleased]: https://github.com/HamedMP/secretbroker/compare/v0.1.0...HEAD

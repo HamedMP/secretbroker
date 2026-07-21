@@ -1,0 +1,20 @@
+{
+  "name": "secretbroker",
+  "plugins": [
+    {
+      "name": "secretbroker",
+      "source": {
+        "source": "local",
+        "path": "./"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Developer Tools",
+      "interface": {
+        "displayName": "SecretBroker"
+      }
+    }
+  ]
+}

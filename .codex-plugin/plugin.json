@@ -1,0 +1,31 @@
+{
+  "name": "secretbroker",
+  "version": "0.1.0",
+  "description": "Keeps secrets out of agent context while granting scoped access to local commands.",
+  "author": {
+    "name": "HamedMP",
+    "url": "https://github.com/HamedMP"
+  },
+  "homepage": "https://github.com/HamedMP/secretbroker",
+  "repository": "https://github.com/HamedMP/secretbroker",
+  "license": "MIT",
+  "keywords": ["credentials", "secrets", "security", "agent-skills"],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "SecretBroker",
+    "shortDescription": "Keep credentials outside agent context",
+    "longDescription": "Securely collect credentials outside an AI conversation and grant explicitly named environment variables only to selected local child commands.",
+    "developerName": "HamedMP",
+    "category": "Developer Tools",
+    "websiteURL": "https://github.com/HamedMP/secretbroker",
+    "privacyPolicyURL": "https://github.com/HamedMP/secretbroker/blob/main/PRIVACY.md",
+    "termsOfServiceURL": "https://github.com/HamedMP/secretbroker/blob/main/LICENSE",
+    "defaultPrompt": [
+      "Use SecretBroker to collect the credentials this command needs without asking me to paste them into chat.",
+      "Run this local command with only the explicitly required secret environment variables."
+    ],
+    "brandColor": "#818CF8",
+    "composerIcon": "./assets/secretbroker-icon.png",
+    "logo": "./assets/secretbroker-icon.png"
+  }
+}

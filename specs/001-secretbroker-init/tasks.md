@@ -87,6 +87,8 @@ Status: In progress
 - [x] Ensure the skill never directs users to paste values into chat.
 - [x] Implement `init --agent pi|claude|codex|all`.
 - [x] Support global/project installation and idempotency.
+- [x] Publish the canonical skill through skills.sh-compatible repository discovery.
+- [x] Add Codex `agents/openai.yaml` metadata, assets, and trigger evaluations.
 - [ ] Add installer tests for every target layout and overwrite case.
 
 ## 9. Npm/npx distribution
@@ -103,8 +105,10 @@ Status: In progress
 
 - [ ] Build Pi extension with a native masked popup.
 - [ ] Wrap Pi agent Bash and user `!` commands through SecretBroker.
-- [ ] Investigate and implement supported Claude Code hooks/plugin UX.
-- [ ] Investigate and implement supported Codex integration UX.
+- [x] Package the canonical skill as a self-hosted Claude Code marketplace plugin.
+- [x] Package the canonical skill as a Codex marketplace plugin.
+- [ ] Build the local MCP bridge and model-hidden launch widget described in `docs/codex-desktop-plugin.md`.
+- [ ] Investigate and implement supported Claude Code hooks beyond skill/plugin distribution.
 - [ ] Ensure all adapters use the same CLI protocol and canonical skill.
 
 ## 11. Hardening before public v0.1

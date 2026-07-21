@@ -54,6 +54,31 @@ jobs:
         env:
           SECRETBROKER_BINARY: ${{ github.workspace }}/target/debug/secretbroker
 
+  agent-skill:
+    name: Agent skill
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+      - run: node scripts/check-agent-package.mjs
+      - name: Check package versions
+        run: |
+          version=$(node -p "require('./packages/npm/package.json').version")
+          node scripts/check-release-version.mjs "v$version"
+      - name: Test skills.sh installation layout
+        run: |
+          workdir="$(mktemp -d)"
+          cd "$workdir"
+          git init --quiet
+          npx -y skills@1.5.19 add "$GITHUB_WORKSPACE" --skill secretbroker --agent pi claude-code codex --yes --copy
+          test -f .pi/skills/secretbroker/SKILL.md
+          test -f .claude/skills/secretbroker/SKILL.md
+          test -f .agents/skills/secretbroker/SKILL.md
+          test -f .agents/skills/secretbroker/agents/openai.yaml
+          test -f .agents/skills/secretbroker/evals/evals.json
+
   audit:
     name: Dependency audit
     runs-on: ubuntu-latest

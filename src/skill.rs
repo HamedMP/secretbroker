@@ -9,6 +9,10 @@ use serde::Serialize;
 const SKILL_MD: &str = include_str!("../skills/secretbroker/SKILL.md");
 const WORKFLOW_MD: &str = include_str!("../skills/secretbroker/references/workflow.md");
 const SECURITY_MD: &str = include_str!("../skills/secretbroker/references/security.md");
+const OPENAI_YAML: &str = include_str!("../skills/secretbroker/agents/openai.yaml");
+const EVALS_JSON: &str = include_str!("../skills/secretbroker/evals/evals.json");
+const ICON_SVG: &[u8] = include_bytes!("../skills/secretbroker/assets/secretbroker-icon.svg");
+const ICON_PNG: &[u8] = include_bytes!("../skills/secretbroker/assets/secretbroker-icon.png");
 
 #[derive(Clone, Copy, Debug)]
 pub enum Agent {
@@ -63,11 +67,17 @@ fn install_target(target: &Path, force: bool) -> Result<()> {
             );
         }
     }
-    fs::create_dir_all(target.join("references"))
-        .with_context(|| format!("cannot create {}", target.display()))?;
+    for directory in ["references", "agents", "assets", "evals"] {
+        fs::create_dir_all(target.join(directory))
+            .with_context(|| format!("cannot create {}", target.display()))?;
+    }
     fs::write(target.join("SKILL.md"), SKILL_MD)?;
     fs::write(target.join("references/workflow.md"), WORKFLOW_MD)?;
     fs::write(target.join("references/security.md"), SECURITY_MD)?;
+    fs::write(target.join("agents/openai.yaml"), OPENAI_YAML)?;
+    fs::write(target.join("assets/secretbroker-icon.svg"), ICON_SVG)?;
+    fs::write(target.join("assets/secretbroker-icon.png"), ICON_PNG)?;
+    fs::write(target.join("evals/evals.json"), EVALS_JSON)?;
     Ok(())
 }
 
@@ -80,12 +90,12 @@ mod tests {
         let temporary = tempfile::tempdir().expect("temp directory");
         let result = install(Agent::Codex, false, false, temporary.path()).expect("install");
         assert_eq!(result.installed.len(), 1);
-        assert!(
-            temporary
-                .path()
-                .join(".agents/skills/secretbroker/SKILL.md")
-                .exists()
-        );
+        let skill = temporary.path().join(".agents/skills/secretbroker");
+        assert!(skill.join("SKILL.md").exists());
+        assert!(skill.join("agents/openai.yaml").exists());
+        assert!(skill.join("assets/secretbroker-icon.svg").exists());
+        assert!(skill.join("assets/secretbroker-icon.png").exists());
+        assert!(skill.join("evals/evals.json").exists());
     }
 
     #[test]
