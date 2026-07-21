@@ -1,6 +1,7 @@
 ---
 name: secretbroker
-description: Securely request environment variables or credentials for local CLI commands without asking the user to paste secret values into the conversation. Use when a command needs an API key, token, password, credential path, or other sensitive environment variable.
+description: Keeps API keys, tokens, passwords, credential paths, and other secrets out of AI conversations while granting explicitly named environment variables to local child commands. Use when a local CLI command needs sensitive credentials or when a user is about to paste a secret into chat.
+license: MIT
 ---
 
 # SecretBroker

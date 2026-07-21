@@ -1,0 +1,25 @@
+{
+  "name": "secretbroker",
+  "owner": {
+    "name": "HamedMP",
+    "url": "https://github.com/HamedMP"
+  },
+  "description": "Security tools for keeping credentials outside AI agent context.",
+  "plugins": [
+    {
+      "name": "secretbroker",
+      "source": "./",
+      "description": "Keeps secrets out of Claude context while granting scoped access to local commands.",
+      "version": "0.1.0",
+      "author": {
+        "name": "HamedMP",
+        "url": "https://github.com/HamedMP"
+      },
+      "homepage": "https://github.com/HamedMP/secretbroker",
+      "repository": "https://github.com/HamedMP/secretbroker",
+      "license": "MIT",
+      "category": "development",
+      "tags": ["credentials", "secrets", "security", "agent-skills"]
+    }
+  ]
+}

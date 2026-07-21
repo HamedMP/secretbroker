@@ -1,0 +1,10 @@
+interface:
+  display_name: "SecretBroker"
+  short_description: "Keep credentials outside agent context"
+  icon_small: "./assets/secretbroker-icon.svg"
+  icon_large: "./assets/secretbroker-icon.png"
+  brand_color: "#818CF8"
+  default_prompt: "Use $secretbroker to collect the credentials this command needs outside the conversation, then run it with only those explicitly named variables."
+
+policy:
+  allow_implicit_invocation: true

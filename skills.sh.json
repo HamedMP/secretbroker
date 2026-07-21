@@ -1,0 +1,11 @@
+{
+  "$schema": "https://skills.sh/schemas/skills.sh.schema.json",
+  "notGrouped": "bottom",
+  "groupings": [
+    {
+      "title": "Credential Security",
+      "description": "Keep sensitive values outside AI conversations while granting scoped access to local commands.",
+      "skills": ["secretbroker"]
+    }
+  ]
+}

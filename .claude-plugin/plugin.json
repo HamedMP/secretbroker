@@ -1,0 +1,13 @@
+{
+  "name": "secretbroker",
+  "version": "0.1.0",
+  "description": "Keeps secrets out of Claude context while granting scoped access to local commands.",
+  "author": {
+    "name": "HamedMP",
+    "url": "https://github.com/HamedMP"
+  },
+  "homepage": "https://github.com/HamedMP/secretbroker",
+  "repository": "https://github.com/HamedMP/secretbroker",
+  "license": "MIT",
+  "keywords": ["credentials", "secrets", "security", "agent-skills"]
+}
