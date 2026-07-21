@@ -15,6 +15,7 @@ include = [
   "/src/**",
   "/assets/**",
   "/skills/**",
+  "/tests/**",
   "/Cargo.toml",
   "/Cargo.lock",
   "/CHANGELOG.md",
@@ -48,6 +49,7 @@ hex = "0.4.3"
 humantime = "2.4.0"
 keyring = { version = "4.1.5", features = ["apple-native-keyring-store"] }
 open = "5.4.0"
+rmcp = { version = "2.2.0", default-features = false, features = ["server", "transport-io"] }
 rpassword = "7.5.4"
 secrecy = "0.10.3"
 serde = { version = "1.0.229", features = ["derive"] }

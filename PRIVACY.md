@@ -6,6 +6,8 @@ SecretBroker is local-first software. The SecretBroker project does not operate 
 
 Secret values are entered through a masked terminal prompt or a one-time form bound to the local loopback interface. Persistent values are stored in the operating system credential store. Metadata that does not contain secret values is stored locally with restrictive filesystem permissions.
 
+The optional desktop MCP server and widget receive variable names and readiness metadata only. They launch the same external localhost form and do not receive credential values or its capability-bearing URL.
+
 ## Child commands
 
 SecretBroker injects only explicitly named variables into the selected child process. That process can access those values and may have its own network, logging, and privacy behavior. Review and trust a command before granting credentials to it.

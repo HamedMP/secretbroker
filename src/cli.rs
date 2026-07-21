@@ -16,6 +16,7 @@ use serde::Serialize;
 use crate::{
     collector::{VariableRequest, terminal, web},
     env_name::EnvName,
+    mcp,
     metadata::{MetadataStore, unix_timestamp},
     output,
     paths::AppPaths,
@@ -59,6 +60,8 @@ enum Command {
     Init(InitArgs),
     /// Generate shell completion definitions.
     Completions { shell: Shell },
+    /// Run the local MCP server for agent and desktop integrations.
+    Mcp,
     /// Check local configuration and platform support.
     Doctor,
 }
@@ -238,6 +241,9 @@ pub async fn execute(cli: Cli) -> Result<i32> {
         Command::Unset(args) => unset(args, json)?,
         Command::Clear(args) => clear(args, json)?,
         Command::Init(args) => init(args, json)?,
+        Command::Mcp => {
+            mcp::serve().await?;
+        }
         Command::Completions { shell } => {
             clap_complete::generate(
                 shell,

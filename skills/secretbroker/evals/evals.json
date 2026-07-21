@@ -5,7 +5,7 @@
     "query": "Deploy this project with Vercel. It needs VERCEL_TOKEN; open the secure browser input.",
     "expected_behavior": [
       "Never asks for the token value in chat",
-      "Requests VERCEL_TOKEN through SecretBroker web mode",
+      "Uses secretbroker_open when the native MCP tool is available, otherwise requests VERCEL_TOKEN through SecretBroker web mode",
       "Runs Vercel through SecretBroker with only VERCEL_TOKEN granted"
     ]
   },

@@ -201,6 +201,18 @@ The skill MUST instruct agents to:
 - never claim SecretBroker prevents a granted executable from exfiltrating credentials;
 - report only names and readiness.
 
+### FR-11: Local MCP desktop integration
+
+`secretbroker mcp` MUST expose a local stdio MCP server that:
+
+- accepts only variable names and bounded, non-sensitive request options;
+- launches the existing browser collector in a separate process;
+- returns names and readiness metadata only;
+- never returns secret values or capability-bearing localhost URLs;
+- serves a widget with no credential input controls;
+- keeps widget polling tools app-only when supported by the host;
+- writes JSON-RPC only to stdout.
+
 ## CLI surface for v0.1
 
 ```text
@@ -212,6 +224,7 @@ secretbroker status [--scope SCOPE] [--json]
 secretbroker unset [--scope SCOPE] NAME...
 secretbroker clear [--scope SCOPE] [--yes]
 secretbroker init --agent AGENT [--global|--project] [--force]
+secretbroker mcp
 secretbroker completions SHELL
 secretbroker doctor [--json]
 ```
@@ -249,7 +262,8 @@ The JSON contract MUST remain stable within a major version.
 - accidental exact-value echo from a child process;
 - remote network access to the browser form;
 - stale browser forms after completion or timeout;
-- another local OS user reading request metadata under normal permission enforcement.
+- another local OS user reading request metadata under normal permission enforcement;
+- MCP widgets or model context receiving values when the documented desktop workflow is followed.
 
 ### Not protected against
 
@@ -258,7 +272,8 @@ The JSON contract MUST remain stable within a major version.
 - browser extensions with permission to inspect localhost pages;
 - compromised package registries or an unpinned `npx` package;
 - transformed secret output that does not match exact redaction patterns;
-- secrets exposed by third-party command configuration, plugins, hooks, or debug logs.
+- secrets exposed by third-party command configuration, plugins, hooks, or debug logs;
+- a user or agent deliberately placing a secret in a model-visible MCP argument.
 
 ## Security requirements
 
@@ -281,6 +296,7 @@ The JSON contract MUST remain stable within a major version.
 - Exact values printed by a child are replaced with `[REDACTED]`.
 - Status and JSON output never contain values.
 - The generic skill installs for Pi, Claude Code, and Codex.
+- The local MCP server exposes metadata-only request and status tools plus a widget without credential fields.
 - Unit tests cover validation, scope IDs, metadata, expiry, request state, and redaction.
 - Integration tests cover request/fulfill and child injection without recording values.
 - `cargo fmt`, `cargo clippy -- -D warnings`, and `cargo test` pass.

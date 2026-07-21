@@ -23,6 +23,8 @@ SecretBroker is designed to keep values out of:
 
 Persistent values are stored in the operating system credential store.
 
+The desktop MCP integration accepts only variable names and non-sensitive request options. It launches the existing browser collector in a separate process. The widget and MCP results contain readiness metadata only; no capability URL or credential value is returned through MCP.
+
 ## Explicit limitations
 
 SecretBroker does not protect against:
@@ -32,6 +34,7 @@ SecretBroker does not protect against:
 - a granted executable deliberately exfiltrating a credential;
 - transformed or encoded secret output;
 - compromised npm or crate distribution channels;
-- repository-controlled command hooks or plugins executed by a granted tool.
+- repository-controlled command hooks or plugins executed by a granted tool;
+- users or agents deliberately placing secret values in MCP names, descriptions, or other model-visible arguments.
 
 Review [`specs/001-secretbroker-init/spec.md`](specs/001-secretbroker-init/spec.md) before evaluating or deploying SecretBroker.

@@ -1,47 +1,56 @@
 # Codex and ChatGPT Desktop Plugin
 
-SecretBroker is currently packaged as a skills-only Codex plugin. A future MCP-backed app can add a native control surface in the ChatGPT desktop app without collecting secret values inside ChatGPT.
+SecretBroker includes a skills plugin, a local stdio MCP server, and an MCP App status widget. The integration opens SecretBroker's existing one-time loopback form in the system browser; it does not collect credentials inside ChatGPT.
+
+## Install and run
+
+The plugin marketplace installs `.mcp.json`, which starts:
+
+```sh
+secretbroker mcp
+```
+
+The `secretbroker` binary must already be available on `PATH`. The MCP server exposes:
+
+- `secretbroker_open`: accepts variable names, non-sensitive descriptions, scope, timeout, and optional TTL; launches a separate SecretBroker browser-collection process.
+- `secretbroker_status`: app-only polling tool that returns available, missing, and expired names from local metadata.
+- `ui://secretbroker/request-status.html`: sandboxed status and retry widget.
 
 ## Supported presentation
 
-ChatGPT app components render in a sandboxed iframe within the conversation. They may request inline, picture-in-picture, fullscreen, or host-controlled modal presentation. The current app API does not provide a permanent browser sidebar.
-
-The safest useful interface is a small request/status widget that opens SecretBroker's one-time loopback form in the system browser.
+ChatGPT app components render in a sandboxed iframe within the conversation. They may request inline, picture-in-picture, fullscreen, or host-controlled modal presentation. The current app API does not provide a permanent browser sidebar. The widget can request picture-in-picture so readiness remains visible while the user completes the external form.
 
 ## Security-preserving architecture
 
-1. A local SecretBroker MCP bridge exposes a `create_secret_request` tool.
-2. Its input schema accepts only variable names, non-sensitive descriptions, scope, and collection mode.
-3. The bridge starts the existing one-time loopback collector.
-4. Safe request metadata is returned in `structuredContent`.
-5. The capability-bearing localhost URL is returned only in tool-result `_meta`, which ChatGPT delivers to the component but hides from the model and conversation transcript.
-6. The component uses `window.openai.openExternal` to open that URL in the system browser.
-7. The user enters values only in SecretBroker's local form.
-8. The widget polls safe request status and reports readiness by variable name.
-9. Commands still receive credentials only through `secretbroker run --with NAME`.
+1. The model calls `secretbroker_open` with names and non-sensitive descriptions only.
+2. The MCP server validates and bounds every argument.
+3. It starts a separate `secretbroker request --web` child with stdin, stdout, and stderr detached from MCP transport.
+4. That child binds the one-time form to an ephemeral loopback port and opens it in the system browser.
+5. Neither the capability-bearing localhost URL nor any credential value is returned to the MCP process, widget, model, or transcript.
+6. The user enters values only in SecretBroker's local form.
+7. The app-only status tool reads metadata, never credential values.
+8. Commands still receive credentials only through `secretbroker run --with NAME`.
 
-The app must never:
+The widget contains no text or password input. Its tool calls contain only names, scope, and safe request options.
+
+## Hard boundary
+
+The integration must never:
 
 - accept secret values in a ChatGPT component field;
 - pass secret values to `window.openai.callTool`;
-- place the capability URL in `content` or `structuredContent`;
+- return capability URLs in `content`, `structuredContent`, or `_meta`;
 - embed the loopback form in a subframe;
 - return credential values from MCP tools;
-- claim that the child process is unable to exfiltrate granted credentials.
+- write MCP diagnostics to stdout, which is reserved for JSON-RPC;
+- claim that a child process cannot exfiltrate granted credentials.
 
-## Why an external form
+## Remaining desktop release work
 
-Tool inputs, `content`, and `structuredContent` can become model-visible or appear in the conversation transcript. Tool-result `_meta` is widget-only, but using it for a short-lived launch URL is safer than moving credential values through the app bridge. The existing loopback form also preserves SecretBroker's host and origin validation, no-store policy, capability checks, and process lifetime.
-
-## Implementation stages
-
-1. Add a local `secretbroker mcp` transport exposing request, status, and cancel operations only.
-2. Build an instruction-light MCP App widget with no secret input controls.
-3. Add app-only tool visibility for widget actions that the model should not invoke.
-4. Create a developer-mode app in ChatGPT and add its `plugin_asdk_app_...` identifier to `.app.json`.
-5. Point `.codex-plugin/plugin.json` at `.app.json` and test through the local marketplace.
-6. Add tests proving that values and capability URLs never enter model-visible result fields.
-7. Complete independent security review before public submission.
+- Validate the widget visually in ChatGPT developer mode and each supported Codex desktop release.
+- Create a developer-mode app ID and `.app.json` only if the target ChatGPT distribution flow requires one; never commit an account-specific placeholder.
+- Add screenshots and host-specific accessibility tests.
+- Complete an independent security review before submitting the app through the public plugin directory.
 
 ## References
 

@@ -107,7 +107,8 @@ Status: In progress
 - [ ] Wrap Pi agent Bash and user `!` commands through SecretBroker.
 - [x] Package the canonical skill as a self-hosted Claude Code marketplace plugin.
 - [x] Package the canonical skill as a Codex marketplace plugin.
-- [ ] Build the local MCP bridge and model-hidden launch widget described in `docs/codex-desktop-plugin.md`.
+- [x] Build the local MCP bridge and metadata-only status widget described in `docs/codex-desktop-plugin.md`.
+- [ ] Validate the widget visually in ChatGPT developer mode and supported Codex desktop releases.
 - [ ] Investigate and implement supported Claude Code hooks beyond skill/plugin distribution.
 - [ ] Ensure all adapters use the same CLI protocol and canonical skill.
 
