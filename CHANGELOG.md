@@ -16,6 +16,7 @@ All notable changes to SecretBroker are documented here. The project follows sem
 - Portable Agent Skill installer for Pi, Claude Code, and Codex.
 - skills.sh listing and one-command Agent Skill installation.
 - Native Claude Code and Codex plugin marketplace manifests.
+- Local stdio MCP bridge and metadata-only desktop status widget.
 - Codex desktop metadata, visual assets, and eight trigger and safety evaluations.
 - npm launcher architecture and cross-platform release automation.
 

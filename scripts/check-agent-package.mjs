@@ -18,6 +18,8 @@ if (!description || description.length > 1024) throw new Error("Skill descriptio
 if (field("license") !== "MIT") throw new Error("Skill license must be MIT");
 
 const requiredFiles = [
+  ".mcp.json",
+  "assets/secretbroker-widget.html",
   "skills/secretbroker/references/workflow.md",
   "skills/secretbroker/references/security.md",
   "skills/secretbroker/agents/openai.yaml",
@@ -40,6 +42,7 @@ const claudePlugin = await readJson(".claude-plugin/plugin.json");
 const claudeMarketplace = await readJson(".claude-plugin/marketplace.json");
 const codexPlugin = await readJson(".codex-plugin/plugin.json");
 const codexMarketplace = await readJson(".agents/plugins/marketplace.json");
+const mcpConfig = await readJson(".mcp.json");
 if (claudePlugin.name !== "secretbroker" || codexPlugin.name !== "secretbroker") {
   throw new Error("Plugin manifests must use the secretbroker identifier");
 }
@@ -50,5 +53,13 @@ if (!codexMarketplace.plugins?.some((plugin) => plugin.name === "secretbroker"))
   throw new Error("Codex marketplace does not expose secretbroker");
 }
 if (codexPlugin.skills !== "./skills/") throw new Error("Codex plugin skill path is invalid");
+if (codexPlugin.mcpServers !== "./.mcp.json") throw new Error("Codex MCP path is invalid");
+if (mcpConfig.secretbroker?.command !== "secretbroker" || mcpConfig.secretbroker?.args?.[0] !== "mcp") {
+  throw new Error("MCP server command is invalid");
+}
+const widget = await read("assets/secretbroker-widget.html");
+if (/<input|type=["']password/i.test(widget)) {
+  throw new Error("Desktop widget must not contain credential input controls");
+}
 
 process.stdout.write("Agent skill and plugin packages are valid.\n");

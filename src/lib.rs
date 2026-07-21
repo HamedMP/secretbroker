@@ -4,6 +4,7 @@
 pub mod cli;
 pub mod collector;
 pub mod env_name;
+pub mod mcp;
 pub mod metadata;
 pub mod output;
 pub mod paths;

@@ -11,6 +11,7 @@
   "license": "MIT",
   "keywords": ["credentials", "secrets", "security", "agent-skills"],
   "skills": "./skills/",
+  "mcpServers": "./.mcp.json",
   "interface": {
     "displayName": "SecretBroker",
     "shortDescription": "Keep credentials outside agent context",

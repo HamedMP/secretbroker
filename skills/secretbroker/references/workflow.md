@@ -68,7 +68,15 @@ The wait exits when fulfillment succeeds, allowing the agent to continue automat
 
 When a human invokes SecretBroker from an interactive terminal without an explicit mode, SecretBroker itself offers browser, current-terminal, another-terminal, and cancel options.
 
-## 4. Run with the minimum variables
+## 4. Use the native desktop control surface when available
+
+If the agent exposes a `secretbroker_open` MCP tool, it may replace the shell-based browser request. Pass only the scope, variable names, and non-sensitive descriptions. Never pass credential values or capability URLs as tool arguments.
+
+The tool opens SecretBroker's separate one-time localhost form in the system browser. Its desktop widget receives only variable names and readiness metadata. Use `secretbroker_status` only from that widget; do not treat it as a way to retrieve values.
+
+The MCP request affects collection only. Continue to invoke the intended child command through `secretbroker run` with explicit grants.
+
+## 5. Run with the minimum variables
 
 Explicitly name only the values needed by this command:
 
@@ -81,7 +89,7 @@ secretbroker run \
 
 Do not wrap a general-purpose shell unless the task truly requires one. Prefer the direct executable and an argument vector.
 
-## 5. Report safely
+## 6. Report safely
 
 Allowed:
 

@@ -24,7 +24,8 @@ It combines:
 - fulfillment from another terminal;
 - OS credential-store persistence;
 - exact-value output redaction;
-- a portable Agent Skill for Pi, Claude Code, and Codex.
+- a portable Agent Skill for Pi, Claude Code, and Codex;
+- a local MCP bridge and model-hidden desktop status widget.
 
 > SecretBroker is pre-release software. Do not use it with production credentials until the threat model and platform integration have been independently reviewed.
 
@@ -117,7 +118,7 @@ secretbroker init --agent all --global
 
 ### Native plugin installation
 
-The repository is also packaged as native Claude Code and Codex plugins for desktop discovery, namespaced invocation, and updates.
+The repository is also packaged as native Claude Code and Codex plugins for desktop discovery, namespaced invocation, updates, and a local secure-input status widget. The CLI must be installed and available as `secretbroker` on `PATH` before enabling the bundled MCP server.
 
 Claude Code:
 
@@ -133,7 +134,7 @@ codex plugin marketplace add HamedMP/secretbroker --ref main
 codex plugin add secretbroker@secretbroker
 ```
 
-After installation, restart the agent if the skill does not appear. Review the skill before use because Agent Skills operate with the agent's permissions.
+After installation, restart the agent if the skill does not appear. When the desktop integration requests credentials, SecretBroker opens its one-time localhost form in the system browser; the in-app widget receives only variable names and readiness metadata. Review the skill before use because Agent Skills operate with the agent's permissions.
 
 ## `npx` distribution
 
@@ -153,7 +154,7 @@ Use short-lived, least-privilege credentials and invoke the intended executable 
 
 ## Development status
 
-The active implementation plan and task list are under [`specs/001-secretbroker-init`](specs/001-secretbroker-init/). Release operations are documented in [`docs/releasing.md`](docs/releasing.md). The security-preserving design for a future Codex and ChatGPT desktop control widget is in [`docs/codex-desktop-plugin.md`](docs/codex-desktop-plugin.md).
+The active implementation plan and task list are under [`specs/001-secretbroker-init`](specs/001-secretbroker-init/). Release operations are documented in [`docs/releasing.md`](docs/releasing.md). The Codex and ChatGPT desktop integration and its security boundary are documented in [`docs/codex-desktop-plugin.md`](docs/codex-desktop-plugin.md).
 
 ## License
 

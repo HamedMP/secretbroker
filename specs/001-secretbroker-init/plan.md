@@ -26,6 +26,9 @@ secretbroker/
 │       └── references/
 ├── adapters/
 │   └── pi/                     # native adapter after core CLI
+├── .claude-plugin/             # Claude plugin and marketplace manifests
+├── .codex-plugin/              # Codex plugin manifest
+├── .mcp.json                   # local MCP server registration
 ├── specs/001-secretbroker-init/
 ├── tests/
 └── .github/workflows/
@@ -105,6 +108,10 @@ One canonical Agent Skill is stored in `skills/secretbroker`. The installer copi
 
 Because Pi and Codex share the portable `.agents/skills` location, installation deduplicates identical targets.
 
+### Desktop MCP integration
+
+`secretbroker mcp` serves a stdio MCP endpoint from the Rust binary. Its request tool validates names and safe options, then starts the existing browser collector in a separate process with all standard streams detached from MCP JSON-RPC. Its app-only status tool reads metadata only. An embedded MCP App resource renders names and readiness without any credential input controls. The collector opens the capability-bearing URL directly in the system browser, so that URL never crosses MCP.
+
 ### Npm distribution
 
 The npm package exposes a small launcher that selects a platform-specific optional dependency containing the Rust binary. The intended UX is:
@@ -147,7 +154,8 @@ No hosted component is introduced in v0.1.
 - two-process request/fulfill coordination;
 - child receives a value while argv and result remain clean;
 - exact child echo is redacted;
-- skill installation and idempotency.
+- skill installation and idempotency;
+- MCP stdio initialization, tool metadata, widget resource, and metadata-only status.
 
 ### CI
 
@@ -187,6 +195,7 @@ No hosted component is introduced in v0.1.
 
 ### Phase 4: Native adapters and hardening
 
+- local Codex and ChatGPT desktop MCP bridge and status widget;
 - Pi extension with native popup and transparent Bash wrapping;
 - investigate equivalent Claude Code and Codex hooks;
 - command grant policy;
