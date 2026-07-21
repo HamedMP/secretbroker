@@ -28,14 +28,14 @@ jobs:
       version: ${{ steps.version.outputs.version }}
       tag: ${{ steps.version.outputs.tag }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           ref: ${{ inputs.tag || github.ref }}
       - uses: dtolnay/rust-toolchain@1.88.0
         with:
           components: rustfmt, clippy
       - uses: Swatinem/rust-cache@v2
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version: 22
       - id: version
@@ -90,7 +90,7 @@ jobs:
             binary: secretbroker.exe
     runs-on: ${{ matrix.runner }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           ref: ${{ needs.verify.outputs.tag }}
       - uses: dtolnay/rust-toolchain@1.88.0
@@ -99,7 +99,7 @@ jobs:
       - uses: Swatinem/rust-cache@v2
         with:
           key: ${{ matrix.target }}
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version: 22
       - run: cargo build --release --locked --target ${{ matrix.target }}
@@ -143,7 +143,7 @@ jobs:
     permissions:
       contents: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           ref: ${{ needs.verify.outputs.tag }}
       - uses: actions/download-artifact@v4
@@ -170,7 +170,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: release
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           ref: ${{ needs.verify.outputs.tag }}
       - uses: dtolnay/rust-toolchain@1.88.0
@@ -187,10 +187,10 @@ jobs:
       contents: read
       id-token: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           ref: ${{ needs.verify.outputs.tag }}
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version: 22
           registry-url: https://registry.npmjs.org
