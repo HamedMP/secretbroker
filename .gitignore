@@ -1,0 +1,15 @@
+/target/
+.DS_Store
+*.swp
+*.tmp
+.env
+.env.*
+!.env.example
+node_modules/
+dist/
+*.tgz
+coverage/
+.vscode/
+.idea/
+packages/*/bin/secretbroker
+packages/*/bin/secretbroker.exe

@@ -1,0 +1,61 @@
+[package]
+name = "secretbroker"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.88"
+description = "Broker secrets to local commands without putting values in agent context"
+license = "MIT"
+readme = "README.md"
+repository = "https://github.com/HamedMP/secretbroker"
+homepage = "https://github.com/HamedMP/secretbroker"
+documentation = "https://docs.rs/secretbroker"
+keywords = ["ai-agent", "credentials", "environment", "secrets", "security"]
+categories = ["command-line-utilities", "development-tools"]
+include = [
+  "/src/**",
+  "/assets/**",
+  "/skills/**",
+  "/Cargo.toml",
+  "/Cargo.lock",
+  "/CHANGELOG.md",
+  "/README.md",
+  "/SECURITY.md",
+  "/LICENSE",
+]
+
+[profile.release]
+codegen-units = 1
+lto = true
+strip = true
+
+[lints.rust]
+unsafe_code = "forbid"
+
+[lints.clippy]
+all = "deny"
+
+[dependencies]
+anyhow = "1.0.104"
+axum = "0.8.9"
+base64 = "0.22.1"
+clap = { version = "4.6.3", features = ["derive"] }
+clap_complete = "4.6.7"
+dialoguer = "0.12.0"
+directories = "6.0.0"
+fs2 = "0.4.3"
+getrandom = "0.4.3"
+hex = "0.4.3"
+humantime = "2.4.0"
+keyring = { version = "4.1.5", features = ["apple-native-keyring-store"] }
+open = "5.4.0"
+rpassword = "7.5.4"
+secrecy = "0.10.3"
+serde = { version = "1.0.229", features = ["derive"] }
+serde_json = "1.0.151"
+sha2 = "0.11.0"
+subtle = "2.6.1"
+tempfile = "3.27.0"
+thiserror = "2.0.19"
+tokio = { version = "1.53.1", features = ["full"] }
+ulid = "3.0.0"
+zeroize = "1.9.0"

@@ -1,0 +1,52 @@
+{
+  "name": "secretbroker",
+  "version": "0.1.0",
+  "description": "Broker secrets to local commands without putting values in agent context",
+  "type": "module",
+  "bin": {
+    "secretbroker": "./bin/secretbroker.js"
+  },
+  "files": [
+    "bin",
+    "LICENSE",
+    "README.md"
+  ],
+  "scripts": {
+    "test": "node --test test/*.test.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "os": [
+    "darwin",
+    "linux",
+    "win32"
+  ],
+  "cpu": [
+    "arm64",
+    "x64"
+  ],
+  "optionalDependencies": {
+    "secretbroker-darwin-arm64": "0.1.0",
+    "secretbroker-darwin-x64": "0.1.0",
+    "secretbroker-linux-arm64": "0.1.0",
+    "secretbroker-linux-x64": "0.1.0",
+    "secretbroker-win32-x64": "0.1.0"
+  },
+  "keywords": [
+    "agent-skills",
+    "ai-agent",
+    "credentials",
+    "secrets",
+    "security"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HamedMP/secretbroker.git"
+  },
+  "homepage": "https://github.com/HamedMP/secretbroker#readme",
+  "bugs": {
+    "url": "https://github.com/HamedMP/secretbroker/issues"
+  }
+}
